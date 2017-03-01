@@ -2,9 +2,11 @@
 
 # DO NOT DELETE THESE STATEMENTS
 import bintree
+
 reload(bintree)
 from bintree import *
 import pytest
+
 
 # Write your testing functions here! Each testing function should have an
 # informative name and test a specific aspect of your program's functionality.
@@ -43,6 +45,23 @@ def simple_test_2():
     # Your program will not continue running until you exit the popup
     bt.popup()
 
+
+def nodeTest():
+    # create with parent and value
+
+    # create no parent and value
+    raise Exception("not implemented")
+
+
+def nodeParentTest():
+    # break if node doesnt have a parent
+    raise Exception("not implemented")
+
+
+def nodeLeftTest():
+    raise Exception("not implemented")
+
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # IMPORTANT
@@ -58,10 +77,11 @@ def get_tests():
     # to follow these instructions.
     return [simple_test_1, simple_test_2]
 
+
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
 # The mainline runs all of the test functions in the list returned by get_tests
-if __name__ == '__main__' :
+if __name__ == '__main__':
     print 'Running tests...'
     for test in get_tests():
         test()

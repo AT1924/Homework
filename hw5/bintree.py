@@ -30,7 +30,31 @@ class Node:
         Output: a Node with a parent node and a value
         Purpose: constructor for a Node
         """
-        pass
+        self._parent = parent
+        self._value = value
+        self._depth = self._parent.depth() + 1
+        self._height = 0
+        self._left = None
+        self._right = None
+        # updating parents heights
+        currNode = self._parent
+        while currNode is not None:
+            left = currNode.Left()
+            right = currNode.Right()
+            if left is None and right is not None:
+                myTallest = right
+            elif right is None and left is not None:
+                myTallest = left
+            else:
+                if (left._height > right._height):
+                    myTallest = left
+                if (right._height > left._height):
+                    myTallest = right
+            currNode._height = myTallest.value() + 1
+            currNode = currNode.parent()
+
+
+
 
     def parent(self): #TODO
         """
@@ -38,48 +62,54 @@ class Node:
         Output: Node
         Purpose: get the parent of this Node (if possible)
         """
-        return None
+        return self._parent
 
-    def left(self): #TODO
+    def left(self):
         """
         Input: Node (implicit argument)
         Output: Node
         Purpose: get the left child of this node (if possible)
         """
-        return None
+        return self._left
 
-    def right(self): #TODO
+    def right(self):
         """
         Input: Node (implicit argument)
         Output: Node
         Purpose: get the right child of this node (if possible)
         """
-        return None
+        return self._right
 
-    def addLeft(self, value) : #TODO
+    def addLeft(self, value) :
         """
         Input: Node (implicit argument), value: anything
         Output: Node (the left child)
         Purpose: add a left child to this node with the given value if there isn't one already and return it.
                 If there is one already, just return the current one
         """
-        pass
+        if not self.hasLeft():
+           self._left = Node(self, value)
+        return self._left
 
-    def addRight(self, value) : #TODO
+    def addRight(self, value) :
         """
         Input: Node (implicit argument), value: anything
         Output: Node (the right child)
         Purpose: add a right child to this node with the given value if there isn't one already and return it.
                  If there is one already, just return the current one
         """
-        pass
+        if not self.hasRight():
+            self._right = Node(self, value)
+        return self._right
 
-    def hasLeft(self): #TODO
+    def hasLeft(self):
         """
         Input: Node (implicit argument)
         Output: boolean
         Purpose: return whether this node has a left child
         """
+        if self._left is not None:
+            return True
         return False
 
     def hasRight(self): #TODO
@@ -88,15 +118,17 @@ class Node:
         Output: boolean
         Purpose: return whether the node has a right child
         """
+        if self._right is not None:
+            return True
         return False
 
-    def value(self): #TODO
+    def value(self):
         """
         Input: Node (implicit argument)
         Output: anything
         Purpose: return the value stored at this Node
         """
-        return None
+        return self._value
 
     def depth(self): #TODO
         """
@@ -105,7 +137,7 @@ class Node:
         Purpose: return the depth of this node in the tree in O(1)
         """
 
-        return 0
+        return self._depth
 
     def __str__(self):
         """
@@ -144,7 +176,12 @@ class BinTree:
         Output: BinTree
         Purpose: Creates an empty binary tree
         """
-        pass
+        self._root = None
+        self._right = None
+        self._left = None
+        self._size = None
+
+
 
     def root(self):  #TODO
         """
@@ -153,7 +190,10 @@ class BinTree:
         Purpose: return the root node
         Throw a EmptyBinTreeException if the tree is empty
         """
-        return None
+        if self.isEmpty():
+            raise EmptyBinTreeException("This tree has not yet sprouted")
+
+        return self._root
 
     def parent(self, node): #TODO
         """
@@ -162,88 +202,109 @@ class BinTree:
         Purpose: return the parent node
         Exceptions: throw an InvalidInputException if input is None
         """
-        return None
+        return node.parent()
 
-    def children(self, node): #TODO
+    def children(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: List of child nodes
         Purpose: returns a list of direct child nodes
         Exceptions: throw an InvalidInputException if input is None
         """
-        return None
+        return [node.left(),node.right()]
 
 
-    def isEmpty(self): #TODO
+    def isEmpty(self):
         """
         Input: BinTree (implicit argument)
         Output: boolean
         Purpose: return true if the tree is empty, false otherwise in O(1)
         """
+        if self._root is None:
+            return True
         return False
 
 
-    def size(self): #TODO
+    def size(self):
         """
         Input: BinTree (implicit argument)
         Output: int
         Purpose: return the size of the tree in O(1)
         """
-        return 0
+        return self._size
 
-    def height(self): #TODO
+    def height(self):
         """
         Input: BinTree (implicit argument)
         Output: int
         Purpose: return the height of the tree in O(1) time
         Exceptions: throw an EmptyBinTreeException if the height is undefined
         """
-        return 0
+        if self._root is None:
+            raise EmptyBinTreeException("Can you climb an empty tree?")
+        return self.root()._height
 
-    def isInternal(self, node): #TODO
+    def isInternal(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: boolean
         Purpose: return whether the node is internal.
         Exceptions: throw an InvalidInputException if input is None
         """
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if node.hasRight() or node.hasLeft():
+            return True
         return False
 
-    def isExternal(self, node): #TODO
+    def isExternal(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: boolean
         Purpose: return whether the node is external.
         Exceptions: throw an InvalidInputException if input is None
         """
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if not self.isInternal():
+            return True
         return False
 
-    def isRoot(self, node): #TODO
+    def isRoot(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: boolean
         Purpose: return whether the node is the root
         Exceptions: throw an InvalidInputException if input is None
         """
-        return False
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if not node.parent():
+            return False
+        return True
 
-    def left(self, node): #TODO
+    def left(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: Node
         Purpose: get the left child of the node (if possible)
         Exceptions: throw an InvalidInputException if input is None
         """
-        return None
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        return node.left()
 
-    def right(self, node):  #TODO
+
+    def right(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: Node
         Purpose: get the right child of the node (if possible)
         Exceptions: throw an InvalidInputException if input is None
         """
-        return None
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        return node.right()
 
     def hasLeft(self, node): #TODO
         """
@@ -252,6 +313,10 @@ class BinTree:
         Purpose: return whether the node has a left child
         Exceptions: throw an InvalidInputException if input is None
         """
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if node.hasLeft():
+            return True
         return False
 
     def hasRight(self, node): #TODO
@@ -261,6 +326,10 @@ class BinTree:
         Purpose: return whether the node has a right child
         Exceptions: throw an InvalidInputException if input is None
         """
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if node.hasRight():
+            return True
         return False
 
     def addRoot(self, e): #TODO
@@ -270,7 +339,10 @@ class BinTree:
         Purpose: add a root to the tree only if there isn't one already and return it.
                  If there is one already, just return the current one
         """
-        return None
+        if self._root is None:
+            self._root = Node(None, e)
+            self._size += 1
+        return self._root
 
     def addLeft(self, node, e): #TODO
         """
@@ -280,7 +352,12 @@ class BinTree:
                  If there is one already, just return the current one
         Exceptions: throw an InvalidInputException if node input is None
         """
-        return None
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if not self.hasLeft():
+            node.addLeft(e)
+        self._size += 1
+
 
     def addRight(self, node, e): #TODO
         """
@@ -290,7 +367,11 @@ class BinTree:
                  If there is one already, return it
         Exceptions: throw an InvalidInputException if node input is None
         """
-        return None
+        if node is None:
+            raise InvalidInputException("You cannot add None")
+        if not self.hasRight():
+            node.addRight(e)
+        self._size += 1
 
     def __str__(self):
         """

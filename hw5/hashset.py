@@ -64,21 +64,29 @@ class HashSet:
 
         # TODO Check for invalid inputs!
 
+        if key_length < 3 or expected_size < 256:
+            raise InvalidInputException("key length must be >= 3 or expected size must be at least 256")
+
+
         # Initialized variables based on parameters.
         self._expected_size = expected_size
         self._key_length = key_length
 
         # Find smallest prime greater than expected_size, or 256. 
         if expected_size <= 256:
-            prime = smallest_prime(256)
+            self.prime = smallest_prime(256)
         else:
-            prime = smallest_prime(expected_size)
+            self.prime = smallest_prime(expected_size)
 
         # Underlying array for hashset.
-        self._hashset = [[] for i in range(prime)]
+        self._hashset = [[] for i in range(self.prime)]
         self._hashset_size = 0
 
         # TODO initialize other instance variables
+        self._keyRandoms = []
+        for i in range (key_length):
+            self._keyRandoms.append(random.randint(0,expected_size-1))
+
 
     def my_hash(self, key):
         """
@@ -102,9 +110,17 @@ class HashSet:
                     the wrong length.     
         """
 
-        # TODO compute the hash value and return it
-        return 0
-    
+        if key is None or len(key) != self._key_length:
+            raise InvalidInputException("key must not be none and equal to key length")
+
+
+
+        sum = 0
+        for i in range (self._key_length):
+          sum += self._keyrandoms[i]  *  ord(key[i])
+        return sum % self.prime
+
+
     def insert(self, key):
         """
         Input: key - the key to insert into the set
@@ -120,8 +136,20 @@ class HashSet:
                     the wrong length.
         """
 
-        # TODO insert the new key into the set
-        pass
+        if key is None or len(key) != self._key_length:
+            raise InvalidInputException("key must not be none and equal to key length")
+
+
+        if self.contains(key):
+            pass
+        else:
+            index = self.my_hash(key)
+            bucket = self._hashset[index]
+            if key not in bucket:
+                bucket.append(key)
+                self._hashset_size += 1
+
+
     
     def contains(self, key):
         """
@@ -132,7 +160,11 @@ class HashSet:
         the wrong length.
         """
 
-        # TODO check if key is present in set
+        index = self.my_hash(key)
+        bucket = self._hashset[index]
+        if key in bucket:
+            return True
+
         return False
     
     def remove(self, key):
@@ -145,8 +177,16 @@ class HashSet:
         the wrong length.
         """
 
-        # TODO remove the key if present and return it
-        return None
+        if key is None or len(key) != self._key_length:
+            raise InvalidInputException("key must not be none and equal to key length")
+
+        if self.contains(key):
+            index = self.my_hash(key)
+            bucket = self._hashset[index]
+            self._hashset_size -= 1
+            return bucket.pop(bucket.index(key))
+
+
     
     def get_keys(self):
         """
