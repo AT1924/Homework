@@ -47,29 +47,109 @@ def simple_test_2():
 
 
 def nodeTest():
-    # create with parent and value
+    # create with no parent and value
+    par = Node(None,"A")
+    assert par.value() == "A", "The value of the node is not correct"
+
+    # create parent and value
+    bNode = Node(par,"B")
+    assert bNode.parent() is par, "The parent of nodeTest is not defined"
+
+
+def nodeTest2():
+
+    # break if node does have a parent
+    rt = Node(None, None)
+    assert rt.parent() is None
+
+    assert rt.value() is None
+
+    assert rt.depth() is 0
+
+    assert rt._height is 0
+
+    assert rt.left() is None
+
+    assert not rt.right() and not rt.left()
+
+def nodeChildTest():
+    rt = Node(None, "A")
+
+    assert not rt.hasLeft() and not rt.hasRight()
+
+    left = rt.addLeft("B")
+    right = rt.addRight("C")
+
+    assert left.value() is "B"
+    assert rt.left() is left
+
+    assert right.value() is "C"
+    assert rt.right() is right
+
+    assert left.depth() is 1
+    assert right.depth() is 1
+
+    assert rt.hasLeft() and rt.hasRight()
+
+def binTreeTest():
+    # test empty tree
     bt = BinTree()
-    bt.addRoot("A")
-    curr = bt.addLeft(bt.root(), "B")
-    assert bt.parent(curr) == "A" "Does not find parent node"
+    assert bt.isEmpty()
+    assert bt.size() is 0
+    assert bt.root() is None
 
-    # create no parent and value
-    assert bt.parent(bt.root()) == None("The parent of a root node should be none")
+    # test adding a root node
+    root = bt.addRoot("A")
+    assert root is bt.root()
+    assert bt.isRoot(root)
 
-    pass
+    # test having and not having children
+    assert bt.left(root) is None
+    assert bt.right(root) is None
 
+    right = bt.addRight(root,"B")
+    left = bt.addLeft(root,"C")
+    assert bt.hasLeft(root)
+    assert bt.hasRight(root)
+    assert bt.right(root) is right
+    assert bt.left(root) is left
 
-def nodeParentTest():
-    # break if node doesnt have a parent
+def binTreeInternal_External():
     bt = BinTree()
-    bt.addRoot("A")
-    bt.addLeft()
+    root = bt.addRoot("A")
 
-    raise Exception("not implemented")
+    assert bt.isExternal(root)
+    left = bt.addLeft(root, "B")
+    assert bt.isExternal(left)
+    right = bt.addRight(root, "C")
+    leftGrandChild = bt.addLeft(left, "D")
 
+    assert bt.isInternal(root)
+    assert bt.isInternal(left)
+    assert bt.isExternal(right)
+    assert bt.isExternal(leftGrandChild)
 
-def nodeLeftTest():
-    raise Exception("not implemented")
+def binTreeHeight_Depth():
+    bt = BinTree()
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B")
+    right = bt.addRight(root, "C")
+    leftGrandChild = bt.addLeft(left, "D")
+
+    assert bt.height() == 2
+
+def binTreeParent_Child():
+    bt = BinTree()
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B")
+    right = bt.addRight(root, "C")
+    leftGrandChild = bt.addLeft(left, "D")
+
+    assert root is  bt.parent(left) and root is bt.parent(right)
+    assert leftGrandChild in bt.children(left)
+
+    assert not bt.isEmpty()
+    assert bt.size() == 4
 
 
 def get_tests():
@@ -85,7 +165,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [simple_test_1, simple_test_2]
+    return [simple_test_1, simple_test_2, nodeTest, nodeTest2, nodeChildTest, binTreeTest, binTreeInternal_External, binTreeHeight_Depth, binTreeParent_Child]
 
 
 # DO NOT EDIT BELOW THIS LINE ==================================================

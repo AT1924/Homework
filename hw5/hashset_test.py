@@ -2,9 +2,11 @@
 
 # DO NOT DELETE THESE STATEMENTS
 import hashset
+
 reload(hashset)
 from hashset import *
 import pytest
+
 
 # Write your testing functions here! Each testing function should have an
 # informative name and test a specific aspect of your program's functionality.
@@ -17,35 +19,37 @@ import pytest
 def example_test_1():
     assert 1 == 1, 'Error: 1 does not equal 1!'
 
+
 def simple_test():
-   # Set up hashset
-   hashy = HashSet()
+    # Set up hashset
+    hashy = HashSet()
 
-   # Make sure set is initially empty
-   assert hashy.is_empty() == True
+    # Make sure set is initially empty
+    assert hashy.is_empty() == True
 
-   # Insert 5 different elements
-   hashy.insert('ACT')
-   hashy.insert('BYE')
-   hashy.insert('CAT')
-   hashy.insert('DOG')
-   hashy.insert('EGG')
+    # Insert 5 different elements
+    hashy.insert('ACT')
+    hashy.insert('BYE')
+    hashy.insert('CAT')
+    hashy.insert('DOG')
+    hashy.insert('EGG')
 
-   # Make sure set is no longer empty
-   assert hashy.is_empty() == False
+    # Make sure set is no longer empty
+    assert hashy.is_empty() == False
 
-   # Remove each of the added elements
-   hashy.remove('ACT')
-   hashy.remove('BYE')
-   hashy.remove('CAT')
-   hashy.remove('DOG')
-   hashy.remove('EGG')
+    # Remove each of the added elements
+    hashy.remove('ACT')
+    hashy.remove('BYE')
+    hashy.remove('CAT')
+    hashy.remove('DOG')
+    hashy.remove('EGG')
 
-   # Make sure set is empty once again
-   assert hashy.is_empty() == True
+    # Make sure set is empty once again
+    assert hashy.is_empty() == True
+
 
 def test_Innit():
-    #trigger exceptions
+    # trigger exceptions
     with pytest.raises(InvalidInputException):
         HashSet(expected_size=250)
         HashSet(key_length=2)
@@ -54,8 +58,8 @@ def test_Innit():
     hashy = HashSet(expected_size=300, key_length=5)
 
     # check if it has an array of random numbers for letter in alphabet
-    assert(len(hashy._keyRandoms) == 5)
-    assert(hashy._expected_size == 300)
+    assert (len(hashy._keyRandoms) == 5)
+    assert (hashy._expected_size == 300)
 
 
 def test_Insert():
@@ -65,7 +69,6 @@ def test_Insert():
     with pytest.raises(InvalidInputException):
         hashy.insert(None)
         hashy.insert('ABCD')
-
 
     # add something that is not in the hash set: make sure length is correct
     hashy.insert('ABC')
@@ -77,19 +80,17 @@ def test_Insert():
 
 
 def test_Contains():
-
     # do for an empty hashset and a hashset with values in it
     hashy = HashSet()
     hashy.insert('ABC')
     # test to see if key is not contained
     assert not hashy.contains('ABC') == False, "The hash set does contain key"
 
-    #test to see if key is contained
+    # test to see if key is contained
     assert hashy.contains('ABC') == True, "Contains is True, thus the key is contained"
 
 
 def test_Remove():
-
     # do for empty hashset and hashset with values in it
 
 
@@ -113,7 +114,6 @@ def test_Remove():
     assert hashy.remove("XYZ") == "XYZ", "This key has not been successfully removed"
 
 
-
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # IMPORTANT
@@ -127,13 +127,15 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test, test_Innit(), test_Insert(), test_Contains(), test_Remove()]
+    return [example_test_1, simple_test, test_Innit, test_Insert, test_Contains, test_Remove]
+
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
 # The mainline runs all of the test functions in the list returned by get_tests
-if __name__ == '__main__' :
+if __name__ == '__main__':
     print 'Running tests...'
+    tests = get_tests()
     for test in get_tests():
         test()
     print 'All tests passed!'

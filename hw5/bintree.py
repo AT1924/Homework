@@ -24,23 +24,32 @@ class InvalidInputException(Exception):
 
 class Node:
 
-    def __init__(self, parent, value) : #TODO
+    def __init__(self, parent, value) :
         """
         Input: Node (implicit argument), parent: Node, value: anything
         Output: a Node with a parent node and a value
         Purpose: constructor for a Node
         """
+
         self._parent = parent
         self._value = value
-        self._depth = self._parent.depth() + 1
+        if parent:
+            self._depth = self._parent.depth() + 1
+        else:
+            self._depth = 0
+
         self._height = 0
         self._left = None
         self._right = None
+
+
+    def updateHeights(self):
         # updating parents heights
+        myTallest = self
         currNode = self._parent
         while currNode is not None:
-            left = currNode.Left()
-            right = currNode.Right()
+            left = currNode.left()
+            right = currNode.right()
             if left is None and right is not None:
                 myTallest = right
             elif right is None and left is not None:
@@ -50,7 +59,7 @@ class Node:
                     myTallest = left
                 if (right._height > left._height):
                     myTallest = right
-            currNode._height = myTallest.value() + 1
+            currNode._height = myTallest._height + 1
             currNode = currNode.parent()
 
 
@@ -88,7 +97,8 @@ class Node:
                 If there is one already, just return the current one
         """
         if not self.hasLeft():
-           self._left = Node(self, value)
+            self._left = Node(self, value)
+            self._left._parent = self
         return self._left
 
     def addRight(self, value) :
@@ -100,6 +110,7 @@ class Node:
         """
         if not self.hasRight():
             self._right = Node(self, value)
+            self._right._parent = self
         return self._right
 
     def hasLeft(self):
@@ -112,7 +123,7 @@ class Node:
             return True
         return False
 
-    def hasRight(self): #TODO
+    def hasRight(self):
         """
         Input: Node (implicit argument)
         Output: boolean
@@ -279,7 +290,7 @@ class BinTree:
         """
         if node is None:
             raise InvalidInputException("You cannot add None")
-        if not node.parent():
+        if not self._root is node:
             return False
         return True
 
@@ -341,7 +352,7 @@ class BinTree:
         """
         if self._root is None:
             self._root = Node(None, e)
-            self._size += 1
+            self._size = 1
         return self._root
 
     def addLeft(self, node, e): #TODO
@@ -354,8 +365,9 @@ class BinTree:
         """
         if node is None:
             raise InvalidInputException("You cannot add None")
-        if not self.hasLeft():
-            node.addLeft(e)
+        if not self.hasLeft(node):
+            left = node.addLeft(e)
+            left.updateHeights()
         self._size += 1
 
 
@@ -369,8 +381,9 @@ class BinTree:
         """
         if node is None:
             raise InvalidInputException("You cannot add None")
-        if not self.hasRight():
-            node.addRight(e)
+        if not self.hasRight(node):
+            right = node.addRight(e)
+            right.updateHeights()
         self._size += 1
 
     def __str__(self):
