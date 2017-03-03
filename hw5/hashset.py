@@ -82,7 +82,7 @@ class HashSet:
         self._hashset = [[] for i in range(self.prime)]
         self._hashset_size = 0
 
-        # TODO initialize other instance variables
+        # generate random keys
         self._keyRandoms = []
         for i in range (key_length):
             self._keyRandoms.append(random.randint(0,expected_size-1))

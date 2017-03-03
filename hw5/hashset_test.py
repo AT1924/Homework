@@ -45,31 +45,35 @@ def simple_test():
    assert hashy.is_empty() == True
 
 def test_Innit():
+    #trigger exceptions
+    with pytest.raises(InvalidInputException):
+        HashSet(expected_size=250)
+        HashSet(key_length=2)
+
     # create hash set
-    hashy = HashSet()
+    hashy = HashSet(expected_size=300, key_length=5)
 
     # check if it has an array of random numbers for letter in alphabet
-
-    # make sure values are all unique
+    assert(len(hashy._keyRandoms) == 5)
+    assert(hashy._expected_size == 300)
 
 
 def test_Insert():
-
     # test exceptions: key null, key is incorrect length
     hashy = HashSet()
-    # hashy.insert(None)
-    # hashy.insert('ABCD')
 
-    # try to hash two values to the same bucket
+    with pytest.raises(InvalidInputException):
+        hashy.insert(None)
+        hashy.insert('ABCD')
 
 
-    # add something that is in the hash set: make sure length is correct
+    # add something that is not in the hash set: make sure length is correct
     hashy.insert('ABC')
-    assert hashy.size() == 1; "The length of the hashset is the number of hashes, in this case 1"
+    assert hashy.size() == 1, "The length of the hashset is the number of hashes, in this case 1"
 
-    # add something not in the hash set: make sure length does not change
-
-   # raise Exception("not implemented")
+    # add something in the hash set: make sure length does not change
+    hashy.insert('ABC')
+    assert hashy.size() == 1, "The length of the hashset is the number of hashes, in this case 1"
 
 
 def test_Contains():
