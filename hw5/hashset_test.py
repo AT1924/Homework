@@ -51,14 +51,14 @@ def test_Innit():
     # check if it has an array of random numbers for letter in alphabet
 
     # make sure values are all unique
-    raise Exception("not implemented")
+
 
 def test_Insert():
 
     # test exceptions: key null, key is incorrect length
     hashy = HashSet()
-    hashy.insert(None)
-    hashy.insert('ABCD')
+    # hashy.insert(None)
+    # hashy.insert('ABCD')
 
     # try to hash two values to the same bucket
 
@@ -71,25 +71,44 @@ def test_Insert():
 
    # raise Exception("not implemented")
 
+
 def test_Contains():
 
     # do for an empty hashset and a hashset with values in it
-
+    hashy = HashSet()
+    hashy.insert('ABC')
     # test to see if key is not contained
+    assert not hashy.contains('ABC') == False, "The hash set does contain key"
 
     #test to see if key is contained
+    assert hashy.contains('ABC') == True, "Contains is True, thus the key is contained"
 
-    raise Exception("not implemented")
 
 def test_Remove():
 
     # do for empty hashset and hashset with values in it
 
+
+    # For empty hash set
+    hashy = HashSet()
     # if key isnt in hashset
+    assert hashy.remove('ABC') == None, "This key is not in the hash set"
 
     # if key is in hashset
+    hashy.insert("ABC")
+    assert hashy.remove("ABC") == "ABC", "The key has not been successfully removed"
 
-    raise Exception("not implemented")
+    # for hash set with values
+    hashy.insert("XYZ")
+    hashy.insert("DEF")
+    hashy.insert("GHI")
+    # if key isnt in hashset
+    assert hashy.remove("LMN") == None, "This key is not in the hash set"
+
+    # if key is in hashset
+    assert hashy.remove("XYZ") == "XYZ", "This key has not been successfully removed"
+
+
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

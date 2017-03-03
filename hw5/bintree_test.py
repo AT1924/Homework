@@ -48,13 +48,23 @@ def simple_test_2():
 
 def nodeTest():
     # create with parent and value
+    bt = BinTree()
+    bt.addRoot("A")
+    curr = bt.addLeft(bt.root(), "B")
+    assert bt.parent(curr) == "A" "Does not find parent node"
 
     # create no parent and value
-    raise Exception("not implemented")
+    assert bt.parent(bt.root()) == None("The parent of a root node should be none")
+
+    pass
 
 
 def nodeParentTest():
     # break if node doesnt have a parent
+    bt = BinTree()
+    bt.addRoot("A")
+    bt.addLeft()
+
     raise Exception("not implemented")
 
 

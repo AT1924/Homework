@@ -117,7 +117,7 @@ class HashSet:
 
         sum = 0
         for i in range (self._key_length):
-          sum += self._keyrandoms[i]  *  ord(key[i])
+          sum += self._keyRandoms[i]  *  ord(key[i])
         return sum % self.prime
 
 
@@ -185,6 +185,8 @@ class HashSet:
             bucket = self._hashset[index]
             self._hashset_size -= 1
             return bucket.pop(bucket.index(key))
+        else:
+            return None
 
 
     

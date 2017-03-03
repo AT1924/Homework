@@ -195,7 +195,7 @@ class BinTree:
 
         return self._root
 
-    def parent(self, node): #TODO
+    def parent(self, node):
         """
         Input: BinTree (implicit argument), node: Node
         Output: Node
