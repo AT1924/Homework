@@ -89,7 +89,7 @@ class Node:
         """
         return self._right
 
-    def addLeft(self, value) :
+    def addLeft(self, value):
         """
         Input: Node (implicit argument), value: anything
         Output: Node (the left child)
@@ -190,7 +190,7 @@ class BinTree:
         self._root = None
         self._right = None
         self._left = None
-        self._size = None
+        self._size = 0
 
 
 
@@ -277,7 +277,7 @@ class BinTree:
         """
         if node is None:
             raise InvalidInputException("You cannot add None")
-        if not self.isInternal():
+        if not self.isInternal(node):
             return True
         return False
 
@@ -370,6 +370,8 @@ class BinTree:
             left.updateHeights()
         self._size += 1
 
+        return node.left()
+
 
     def addRight(self, node, e): #TODO
         """
@@ -385,6 +387,8 @@ class BinTree:
             right = node.addRight(e)
             right.updateHeights()
         self._size += 1
+
+        return node.right()
 
     def __str__(self):
         """

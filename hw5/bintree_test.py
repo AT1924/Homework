@@ -96,7 +96,10 @@ def binTreeTest():
     bt = BinTree()
     assert bt.isEmpty()
     assert bt.size() is 0
-    assert bt.root() is None
+
+    # can't get root of empty tree
+    with pytest.raises(EmptyBinTreeException):
+        bt.root()
 
     # test adding a root node
     root = bt.addRoot("A")
