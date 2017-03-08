@@ -1,5 +1,7 @@
 #! /usr/bin/python
 
+import bintree
+reload(bintree)
 from bintree import *
 
 class InvalidInputException(Exception):
@@ -35,12 +37,12 @@ def preorder(bt):
     nodes.append(root)
 
     if root.hasLeft():
-        leftTree = BinTree()
+        leftTree = bintree.BinTree()
         leftTree.addRoot(root.left())
         nodes.extend(preorder(leftTree))
 
     if root.hasRight():
-        rightTree = BinTree()
+        rightTree = bintree.BinTree()
         rightTree.addRoot(root.right())
         nodes.extend(preorder(rightTree))
 
