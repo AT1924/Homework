@@ -1,5 +1,7 @@
 #! /usr/bin/python
 
+from bintree import *
+
 class InvalidInputException(Exception):
     def __init__(self,value):
         self.value = value
@@ -22,7 +24,27 @@ def preorder(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
-    return []
+    if bt is None:
+        raise InvalidInputException("empty trees can only grow empty fruits")
+
+    if bt.isEmpty():
+        return []
+
+    nodes = []
+    root = bt.root()
+    nodes.append(root)
+
+    if root.hasLeft():
+        leftTree = BinTree()
+        leftTree.addRoot(root.left())
+        nodes.extend(preorder(leftTree))
+
+    if root.hasRight():
+        rightTree = BinTree()
+        rightTree.addRoot(root.right())
+        nodes.extend(preorder(rightTree))
+
+    return nodes
 
 def inorder(bt):
     """inorder: binary tree -> list[Position]
@@ -35,6 +57,9 @@ def inorder(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
+    if bt.isEmpty():
+        raise InvalidInputException("empty trees can only grow empty fruits")
+
     return []
 
 def postorder(bt):
@@ -48,6 +73,9 @@ def postorder(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
+    if bt.isEmpty():
+        raise InvalidInputException("empty trees can only grow empty fruits")
+
     return []
 
 def breadthfirst(bt):
@@ -62,4 +90,7 @@ def breadthfirst(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
+    if bt.isEmpty():
+        raise InvalidInputException("empty trees can only grow empty fruits")
+
     return []

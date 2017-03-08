@@ -14,7 +14,11 @@ def increment(number):
     Consumes: A list of digits representing a number
     Produces: A list of 0's and 1's representing that number + 1
     """
-    return []
+
+    if number is None or []:
+        raise InvalidInputException, "inputted number cannot be None or null"
+
+    return increment_helper(number)
 
 def increment_helper(number):
     """increment: list -> list
@@ -24,4 +28,17 @@ def increment_helper(number):
     Example:
        increment([1,1,0,0]) -> [1,1,0,1]
     """
-    return []
+    # if the list is length 1 and holds only 1
+    if len(number) == 1 and number[0] == 1:
+        return [1,0]
+    # if the last place in the list is 1
+    if number[-1] == 1:
+        nList = increment_helper(number[:len(number)-1])
+        nList.append(0)
+        return nList
+
+    # if the last place in the list is 0
+    number[-1] = 1
+    return number
+
+

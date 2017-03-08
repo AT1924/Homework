@@ -33,6 +33,21 @@ def example_test_2():
     my_list = []
     assert len(my_list) == 0, 'Error: The list is not empty...'
 
+def helperTest():
+
+    with pytest.raises(InvalidInputException):
+        increment(None)
+        increment([])
+
+    assert increment(strToList("0")) == [1]
+    assert increment(strToList("1")) == [1,0]
+    assert increment(strToList("10")) == [1,1]
+    assert increment(strToList("11")) == [1,0,0]
+    assert increment(strToList("100")) == [1,0,1]
+    assert increment(strToList("101")) == [1,1,0]
+
+
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # IMPORTANT
@@ -46,7 +61,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, example_test_2]
+    return [example_test_1, example_test_2, helperTest]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 

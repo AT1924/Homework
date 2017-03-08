@@ -33,7 +33,7 @@ def example_test_1():
 
 def simple_test():
     # Setup the tree
-    bt = BinTree()
+    bt = bintree.BinTree()
     root = bt.addRoot("Root")
     left = bt.addLeft(root, "Left")
     right = bt.addRight(root, "Right")
@@ -44,6 +44,22 @@ def simple_test():
     # Test its output
     print "Preorder is in this order: " + str(show_values(pre))
     assert pre == [root, left, right], "Preorder missed assertion!"
+
+def preorder_Test():
+    with pytest.raises(InvalidInputException):
+        preorder(None)
+
+    bt = bintree.BinTree()
+    assert preorder(bt) == []
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B" )
+    leftLeftGrandChild = bt.addLeft(left, "D")
+    leftRightGrandChild = bt.addRight(left, "E")
+    right = bt.addRight(root, "C")
+    rightLeftGrandChild = bt.addLeft(right, "F")
+    rightRightGrandChild = bt.addRight(right, "G")
+
+    assert preorder(bt) == ["A", "B", "D", "E", "C", "F", "G"]
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -58,7 +74,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test]
+    return [example_test_1, simple_test, preorder_Test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
