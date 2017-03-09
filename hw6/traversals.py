@@ -141,7 +141,23 @@ def postorder(bt):
 
 
 
+def breadthfirstHelper(node):
 
+    nodes = [node]
+    index = 0
+
+    while index <  len(nodes):
+        node = nodes[index]
+        if node.hasLeft():
+            nodes.append(node.left())
+
+        if node.hasRight():
+            nodes.append(node.right())
+
+        index += 1
+
+
+    return nodes
 
 def breadthfirst(bt):
     """breadthfirst: binary tree -> list[Node]
@@ -155,7 +171,10 @@ def breadthfirst(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
-    if bt.isEmpty():
+    if bt is None:
         raise InvalidInputException("empty trees can only grow empty fruits")
 
-    return []
+    if bt.isEmpty():
+        return []
+
+    return breadthfirstHelper(bt.root())

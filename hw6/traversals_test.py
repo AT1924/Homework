@@ -100,6 +100,23 @@ def postorder_Test():
 
     assert nodes == [leftLeftGrandChild, leftRightGrandChild, left, rightLeftGrandChild, rightRightGrandChild, right, root]
 
+def breadthfirstOrder_Test():
+    with pytest.raises(InvalidInputException):
+        breadthfirst(None)
+
+    bt = bintree.BinTree()
+    assert postorder(bt) == []
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B" )
+    leftLeftGrandChild = bt.addLeft(left, "D")
+    leftRightGrandChild = bt.addRight(left, "E")
+    right = bt.addRight(root, "C")
+    rightLeftGrandChild = bt.addLeft(right, "F")
+    rightRightGrandChild = bt.addRight(right, "G")
+
+    nodes = breadthfirst(bt)
+
+    assert nodes == [root, left, right, leftLeftGrandChild, leftRightGrandChild, rightLeftGrandChild, rightRightGrandChild]
 
 
 def get_tests():
@@ -115,7 +132,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test, preorder_Test, inorder_Test, postorder_Test]
+    return [example_test_1, simple_test, preorder_Test, inorder_Test, postorder_Test, breadthfirstOrder_Test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
