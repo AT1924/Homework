@@ -59,10 +59,31 @@ def inorder(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
-    if bt.isEmpty():
+
+
+    if bt is None:
         raise InvalidInputException("empty trees can only grow empty fruits")
 
-    return []
+    if bt.isEmpty():
+        return []
+
+    nodes = []
+    root = bt.root()
+
+    if root.hasLeft():
+        leftTree = bintree.BinTree()
+        leftTree.addRoot(root.left())
+        nodes.append(inorder(leftTree))
+
+    nodes.append(root)
+
+    if root.hasRight():
+        rightTree = bintree.BinTree()
+        rightTree.addRoot(root.right())
+        nodes.append(inorder(rightTree))
+
+
+
 
 def postorder(bt):
     """postorder: binary tree -> list[Position]
@@ -75,10 +96,19 @@ def postorder(bt):
     If tree is empty, should return an empty list. If the tree
     is null, you should throw InvalidInputException.
     """
-    if bt.isEmpty():
+    if bt is None:
         raise InvalidInputException("empty trees can only grow empty fruits")
 
-    return []
+    if bt.isEmpty():
+        return []
+
+    nodes = []
+    root = bt.root()
+
+
+    if root.hasLeft():
+        leftTree = bintree.BinTree()
+        leftTree.addRoot(root.left)
 
 def breadthfirst(bt):
     """breadthfirst: binary tree -> list[Node]
