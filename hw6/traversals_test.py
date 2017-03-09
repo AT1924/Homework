@@ -59,7 +59,9 @@ def preorder_Test():
     rightLeftGrandChild = bt.addLeft(right, "F")
     rightRightGrandChild = bt.addRight(right, "G")
 
-    assert preorder(bt) == ["A", "B", "D", "E", "C", "F", "G"]
+    nodes = preorder(bt)
+
+    assert nodes == [root, left, leftLeftGrandChild, leftRightGrandChild, right, rightLeftGrandChild, rightRightGrandChild]
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
