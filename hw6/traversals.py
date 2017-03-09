@@ -57,6 +57,25 @@ def preorder(bt):
     return preOrderHelper(bt.root())
 
 
+def inOrderHelper(node):
+    """This method allows for iteration on the children of the passed
+    in node.
+    """
+
+    nodes = []
+
+    if node.hasLeft():
+        left = node.left()
+        nodes.extend(inOrderHelper(left))
+
+    nodes.append(node)
+
+    if node.hasRight():
+        right = node.right()
+        nodes.extend(inOrderHelper(right))
+
+    return nodes
+
 
 def inorder(bt):
     """inorder: binary tree -> list[Position]
@@ -76,20 +95,29 @@ def inorder(bt):
     if bt.isEmpty():
         return []
 
+
+    return inOrderHelper(bt.root())
+
+
+def postOrderHelper(node):
+    """This method allows for iteration on the children of the passed
+    in node.
+    """
+
     nodes = []
-    root = bt.root()
 
-    if root.hasLeft():
-        leftTree = bintree.BinTree()
-        leftTree.addRoot(root.left())
-        nodes.append(inorder(leftTree))
+    if node.hasLeft():
+        left = node.left()
+        nodes.extend(postOrderHelper(left))
 
-    nodes.append(root)
+    if node.hasRight():
+        right = node.right()
+        nodes.extend(postOrderHelper(right))
 
-    if root.hasRight():
-        rightTree = bintree.BinTree()
-        rightTree.addRoot(root.right())
-        nodes.append(inorder(rightTree))
+    nodes.append(node)
+
+    return nodes
+
 
 
 def postorder(bt):
@@ -109,12 +137,10 @@ def postorder(bt):
     if bt.isEmpty():
         return []
 
-    nodes = []
-    root = bt.root()
+    return postOrderHelper(bt.root())
 
-    if root.hasLeft():
-        leftTree = bintree.BinTree()
-        leftTree.addRoot(root.left)
+
+
 
 
 def breadthfirst(bt):

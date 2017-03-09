@@ -63,6 +63,45 @@ def preorder_Test():
 
     assert nodes == [root, left, leftLeftGrandChild, leftRightGrandChild, right, rightLeftGrandChild, rightRightGrandChild]
 
+
+def inorder_Test():
+    with pytest.raises(InvalidInputException):
+        inorder(None)
+
+    bt = bintree.BinTree()
+    assert inorder(bt) == []
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B" )
+    leftLeftGrandChild = bt.addLeft(left, "D")
+    leftRightGrandChild = bt.addRight(left, "E")
+    right = bt.addRight(root, "C")
+    rightLeftGrandChild = bt.addLeft(right, "F")
+    rightRightGrandChild = bt.addRight(right, "G")
+
+    nodes = inorder(bt)
+
+    assert nodes == [leftLeftGrandChild, left, leftRightGrandChild, root, rightLeftGrandChild, right, rightRightGrandChild]
+
+def postorder_Test():
+    with pytest.raises(InvalidInputException):
+        postorder(None)
+
+    bt = bintree.BinTree()
+    assert postorder(bt) == []
+    root = bt.addRoot("A")
+    left = bt.addLeft(root, "B" )
+    leftLeftGrandChild = bt.addLeft(left, "D")
+    leftRightGrandChild = bt.addRight(left, "E")
+    right = bt.addRight(root, "C")
+    rightLeftGrandChild = bt.addLeft(right, "F")
+    rightRightGrandChild = bt.addRight(right, "G")
+
+    nodes = postorder(bt)
+
+    assert nodes == [leftLeftGrandChild, leftRightGrandChild, left, rightLeftGrandChild, rightRightGrandChild, right, root]
+
+
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # IMPORTANT
@@ -76,7 +115,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test, preorder_Test]
+    return [example_test_1, simple_test, preorder_Test, inorder_Test, postorder_Test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
