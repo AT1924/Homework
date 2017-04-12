@@ -1,5 +1,6 @@
 from mygraph import *
 
+
 def shortest_path(g, v_start, v_to_find):
     """Input: Graph, GraphVertex, GraphVertex -> [GraphVertex]
     Purpose: Determine the shortest path in the graph from v_start v_to_find.
@@ -23,10 +24,10 @@ def shortest_path(g, v_start, v_to_find):
         # get to last node, and trace back to first node
         if value is v_to_find:
             found = True
-           while value is not v_start:
-               shortestPath.insert(0,value)
-               value = value.element
-           shortestPath.insert(0,v_start)
+            while value is not v_start:
+                shortestPath.insert(0, value)
+                value = value.element
+            shortestPath.insert(0, v_start)
 
         for edge in g.incidentEdges(v_start):
             vertex = g.opposite(value, edge)
