@@ -448,7 +448,7 @@ class MyGraph(object):
         if wantInGraph and e not in self.__edges:
             raise InvalidEdgeException("edge is not in this graph")
         elif wantNotInGraph and e in self.__edges:
-            raise InvaildEdgeException("edge is already in this graph")
+            raise InvalidEdgeException("edge is already in this graph")
 
     """
     Helper methods for tree visualization.
@@ -507,7 +507,8 @@ class MyGraph(object):
             f2(v)
             if v.hasLeft():
                 Q.put(v.left())
-            if v.hasRight():        os.system("dot -Tpng ./.tmpgraph | display")
+            if v.hasRight():
+                os.system("dot -Tpng ./.tmpgraph | display")
                 Q.put(v.right())
 
 
