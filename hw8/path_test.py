@@ -46,7 +46,7 @@ def simple_test():
 
     # Call this method to see what your graph looks like
     # Your program will not continue running until you exit the popup
-    g.popup()
+    #g.popup()
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

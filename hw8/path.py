@@ -11,4 +11,28 @@ def shortest_path(g, v_start, v_to_find):
     Throws: InvalidInputException if any input is None or either vertex
     is not in g.
     """
-    return []
+    shortestPath = []
+    found = False
+    queue = []
+
+    # add start node to queue
+    queue.append(v_start)
+    # iterate on queue and decorate neighbors that have not been decorated
+    while len(queue) != 0 and not found:
+        value = queue.pop(0)
+        # get to last node, and trace back to first node
+        if value is v_to_find:
+            found = True
+           while value is not v_start:
+               shortestPath.insert(0,value)
+               value = value.element
+           shortestPath.insert(0,v_start)
+
+        for edge in g.incidentEdges(v_start):
+            vertex = g.opposite(value, edge)
+            if vertex.element is not None:
+                vertex.element = value
+                queue.append(vertex)
+
+    # or else return empty list
+    return shortestPath
