@@ -6,6 +6,25 @@ class InvalidInputException(Exception):
     def __str__(self):
         return repr(self.value)
         
+def merge(a,b):
+    result = []
+    total = len(a) + len(b)
+    while len(result) < total:
+        if len(a) > 0 and len(b) > 0:
+            #append larger element to result
+            if a[0] > b[0]:
+                result.append(a.pop(0))
+            else:
+                result.append(b.pop(0))
+        elif len(a) > 0:
+            result.extend(a)
+        else:
+            result.extend(b)
+    return result
+
+
+
+
 
 def merge_sort(array):
     """merge_sort: int array -> int array
@@ -13,7 +32,14 @@ def merge_sort(array):
         Example: merge_sort([4,5,1,3,2]) -> [5,4,3,2,1]
         Throws: InvalidInputException if list is None
     """
-    return array
+    # if length is < 2 return array
+    # select midpoint, n/2  blank:len/2, len/2:
+    # run mergesort on left and right components
+    # return the merging of the left and right components
+    if len(array) < 2:
+        return array
+    array = merge(merge_sort(array[:len(array)/2]), merge_sort(array[len(array)/2:]))
+
 
 
 def quick_sort(array):

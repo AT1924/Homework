@@ -25,6 +25,11 @@ def simple_test():
         assert sort_algorithm([4,5,1,3,2]) == [5,4,3,2,1], "%s failed." % name
 	    # Add many, many more asserts here to test your sorts!
 
+def merge_sort_Test():
+    array = [3,5,1,2,10,9,5]
+    merge_sort(array)
+    assert array == [10,9,5,5,3,2,1], array
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # VERY IMPORTANT
@@ -38,7 +43,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test]
+    return [example_test_1, simple_test, merge_sort_Test()]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 

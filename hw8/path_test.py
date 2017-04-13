@@ -65,15 +65,19 @@ def harder_test():
 
     g.insertEdge(v0, v1, GraphEdge(0))
     g.insertEdge(v0, v2, GraphEdge(1))
-    g.insertEdge(v2, v3, GraphEdge(2))
+    g.insertEdge(v1, v3, GraphEdge(2))
     g.insertEdge(v3, v4, GraphEdge(3))
     g.insertEdge(v4, v5, GraphEdge(4))
     g.insertEdge(v2, v5, GraphEdge(5))
 
-    path = shortest_path(g, v0, v1)
+    path = shortest_path(g, v0, v5)
     print "Shortest path found: " + format_list(path)
 
-  #  assert path == [v0, v2, v5]
+    assert path == [v0, v2, v5]
+
+    # test where there isnt a shortest path
+
+    # raise invalid input exception if input is invalid
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

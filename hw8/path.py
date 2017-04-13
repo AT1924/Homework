@@ -30,7 +30,7 @@ def shortest_path(g, v_start, v_to_find):
                 vertex = decorate[vertex]
             shortestPath.insert(0, v_start)
 
-        for edge in g.incidentEdges(v_start):
+        for edge in g.incidentEdges(vertex):
             nextVertex = g.opposite(vertex, edge)
             if nextVertex not in decorate:
                 decorate[nextVertex] = vertex
