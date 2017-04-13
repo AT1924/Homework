@@ -48,6 +48,33 @@ def simple_test():
     # Your program will not continue running until you exit the popup
     #g.popup()
 
+def harder_test():
+    g = MyGraph()
+    v0 = GraphVertex(0)
+    v1 = GraphVertex(1)
+    v2 = GraphVertex(2)
+    v3 = GraphVertex(3)
+    v4 = GraphVertex(4)
+    v5 = GraphVertex(5)
+    g.insertVertex(v0)
+    g.insertVertex(v1)
+    g.insertVertex(v2)
+    g.insertVertex(v3)
+    g.insertVertex(v4)
+    g.insertVertex(v5)
+
+    g.insertEdge(v0, v1, GraphEdge(0))
+    g.insertEdge(v0, v2, GraphEdge(1))
+    g.insertEdge(v2, v3, GraphEdge(2))
+    g.insertEdge(v3, v4, GraphEdge(3))
+    g.insertEdge(v4, v5, GraphEdge(4))
+    g.insertEdge(v2, v5, GraphEdge(5))
+
+    path = shortest_path(g, v0, v1)
+    print "Shortest path found: " + format_list(path)
+
+  #  assert path == [v0, v2, v5]
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # VERY IMPORTANT
@@ -61,7 +88,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test]
+    return [example_test_1, simple_test, harder_test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
