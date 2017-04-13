@@ -23,22 +23,23 @@ def merge(a,b):
     return result
 
 
-
-
-
 def merge_sort(array):
     """merge_sort: int array -> int array
         Purpose: Sort the input array of integers in descending order using the merge sort algorithm
         Example: merge_sort([4,5,1,3,2]) -> [5,4,3,2,1]
         Throws: InvalidInputException if list is None
     """
+    if array is None:
+        raise InvalidInputException('Null array')
+
     # if length is < 2 return array
+    if len(array) < 2:
+        return array
+
     # select midpoint, n/2  blank:len/2, len/2:
     # run mergesort on left and right components
     # return the merging of the left and right components
-    if len(array) < 2:
-        return array
-    array = merge(merge_sort(array[:len(array)/2]), merge_sort(array[len(array)/2:]))
+    return merge(merge_sort(array[:len(array)/2]), merge_sort(array[len(array)/2:]))
 
 
 
