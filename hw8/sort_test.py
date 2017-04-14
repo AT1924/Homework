@@ -39,6 +39,14 @@ def quick_sort_test():
     with pytest.raises(InvalidInputException):
         quick_sort(None)
 
+def radix_sort_test():
+    array = [8456,756,23,10095,-450,-234]
+    assert radix_sort(array) == [10095,8456,756,23,-234,-450], radix_sort(array)
+
+    with pytest.raises(InvalidInputException):
+        radix_sort(None)
+
+
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # VERY IMPORTANT
@@ -54,7 +62,7 @@ def get_tests():
     # to follow these instructions.
 
     # return [example_test_1, simple_test, merge_sort_Test()]
-    return [example_test_1, merge_sort_test, quick_sort_test]
+    return [example_test_1, merge_sort_test, quick_sort_test, radix_sort_test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
