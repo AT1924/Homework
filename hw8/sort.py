@@ -69,8 +69,6 @@ def quick_sort(array):
     return quick_sort(G) + E + quick_sort(L)
 
 
-
-
 def radix_sort(array):
     """radix_sort: int array -> int array
         Purpose: Sort the input array of integers in descending order using the radixsort algorithm
@@ -84,7 +82,7 @@ def radix_sort(array):
     # list with 10 buckets 0-9
 
     posBuckets = [[] for _ in range(10)]
-    negBuckets = list(posBuckets)
+    negBuckets = [[] for _ in range(10)]
 
     # loop "num_digits" times
     counter = 1
@@ -95,8 +93,9 @@ def radix_sort(array):
         # loop on array
         while len(array) > 0:
             # check current digit in array and place it into corresponding bucket
-            numAsString = str(array.pop())
-            if numAsString < 0:
+            num = array.pop()
+            numAsString = str(num)
+            if num < 0:
                 buckets = negBuckets
             else:
                 buckets = posBuckets
@@ -106,14 +105,20 @@ def radix_sort(array):
                 buckets[int(numAsString[-counter])].append(int(numAsString))
 
         # outside of loop, concatenate the buckets
-        for buckets in [posBuckets, negBuckets]:
-            while len(buckets) > 0:
-                bucket = buckets.pop()
-                while len(bucket) > 0:
-                    array.append(bucket.pop())
-
+        # positive
+        while len(posBuckets) > 0:
+            bucket = posBuckets.pop()
+            while len(bucket) > 0:
+                array.append(bucket.pop())
         posBuckets = [[] for _ in range(10)]
-        negBuckets = list(posBuckets)
+
+        # negative
+        while len(negBuckets) > 0:
+            bucket = negBuckets.pop(0)
+            while len(bucket) > 0:
+                array.append(bucket.pop(0))
+        negBuckets = [[] for _ in range(10)]
+
         counter += 1
 
     return array
