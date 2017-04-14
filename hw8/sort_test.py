@@ -32,6 +32,12 @@ def merge_sort_test():
     with pytest.raises(InvalidInputException):
         merge_sort(None)
 
+def quick_sort_test():
+    array = [10,5,7,20,8,3]
+    assert quick_sort(array) == [20,10,8,7,5,3]
+
+    with pytest.raises(InvalidInputException):
+        quick_sort(None)
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -48,7 +54,7 @@ def get_tests():
     # to follow these instructions.
 
     # return [example_test_1, simple_test, merge_sort_Test()]
-    return [example_test_1, merge_sort_test]
+    return [example_test_1, merge_sort_test, quick_sort_test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 

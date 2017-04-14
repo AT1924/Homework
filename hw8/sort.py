@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import random
 
 class InvalidInputException(Exception):
     def __init__(self,value):
@@ -49,7 +50,25 @@ def quick_sort(array):
         Example: quick_sort([4,5,1,3,2]) -> [5,4,3,2,1]
         Throws: InvalidInputException if list is None
     """
-    return array
+    if array is None:
+        raise InvalidInputException('Null array')
+
+    if len(array) < 2:
+        return array
+    L = []
+    E = []
+    G = []
+    pivot = array[random.randrange(0, len(array))]
+    for element in array:
+        if element < pivot:
+            L.append(element)
+        elif element > pivot:
+            G.append(element)
+        else:
+            E.append(element)
+    return quick_sort(G) + E + quick_sort(L)
+
+
 
 
 def radix_sort(array):
@@ -58,4 +77,28 @@ def radix_sort(array):
         Example: radix_sort([4,5,1,3,2]) -> [5,4,3,2,1]
         Throws: InvalidInputException if list is None
     """
+    # list with 10 buckets 0-9
+
+    buckets = [[] for _ in range(10)]
+
+    # loop "d" times
+    counter = 1
+    num_digits = len(str(max(array)))
+    while counter <= num_digits:
+
+        # loop on array
+
+        while len(array) > 0:
+            # check current digit in array and place it into corresponding bucket
+            numAsString = str(array.pop())
+            buckets[int(numAsString[-counter])].append(int(numAsString))
+
+        # outside of loop, concatenate the buckets
+        while len(buckets) > 0:
+            array.extend(buckets.pop())
+
+        buckets = [[] for _ in range(10)]
+
+    # while failed digit finder counter is less than the number of elements in array
+
     return array
