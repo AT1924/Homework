@@ -1,21 +1,19 @@
 #!/usr/bin/python
 
 # DO NOT DELETE THESE STATEMENTS
-import path
-import mygraph
-reload(mygraph)
-reload(path)
-from mygraph import *
-from path import *
+import topsort
+import mydigraph
+reload(topsort)
+reload(mydigraph)
+from topsort import *
+from mydigraph import *
 import pytest
 
-def format_list(l):
-    # Returns a list of GraphVertex objects in string format.
-
+def show_elements(l):
     if l != None:
-        return "[" + ", ".join([str(v) for v in l]) + "]"
+        return [x.element() for x in l]
     else:
-        return ""
+        return []
 
 # Write your testing functions here! Each testing function should have an
 # informative name and test a specific aspect of your program's functionality.
@@ -29,55 +27,23 @@ def example_test_1():
     assert 1 == 1, 'Error: 1 does not equal 1!'
 
 def simple_test():
-    # Setup simple graph
-    g = MyGraph()
-    v0 = GraphVertex(0)
-    v1 = GraphVertex(1)
-    g.insertVertex(v0)
-    g.insertVertex(v1)
-    g.insertEdge(v0, v1, GraphEdge(0))
+    # Setup graph
+    g = MyDigraph()
+    v0 = g.insertVertex(GraphVertex(0))
+    v1 = g.insertVertex(GraphVertex(1))
+    v2 = g.insertVertex(GraphVertex(2))
+    g.insertEdge(v0, v2, GraphEdge(0))
+    g.insertEdge(v1, v2, GraphEdge(1))
 
-    # Run the algorithm
-    path = shortest_path(g, v0, v1)
-    print "Shortest path found: " + format_list(path)
-
-    # Throw an exception so we know our test failed
-    assert path == [v0, v1]
-
-    # Call this method to see what your graph looks like
-    # Your program will not continue running until you exit the popup
     g.popup()
+    # Run the algorithm
+    topsorted = topological_sort(g)
 
-def harder_test():
-    g = MyGraph()
-    v0 = GraphVertex(0)
-    v1 = GraphVertex(1)
-    v2 = GraphVertex(2)
-    v3 = GraphVertex(3)
-    v4 = GraphVertex(4)
-    v5 = GraphVertex(5)
-    g.insertVertex(v0)
-    g.insertVertex(v1)
-    g.insertVertex(v2)
-    g.insertVertex(v3)
-    g.insertVertex(v4)
-    g.insertVertex(v5)
+    # Test its output
+    print "Topologically sorted in the order: ", show_elements(topsorted)
 
-    g.insertEdge(v0, v1, GraphEdge(0))
-    g.insertEdge(v0, v2, GraphEdge(1))
-    g.insertEdge(v1, v3, GraphEdge(2))
-    g.insertEdge(v3, v4, GraphEdge(3))
-    g.insertEdge(v4, v5, GraphEdge(4))
-    g.insertEdge(v2, v5, GraphEdge(5))
-
-    path = shortest_path(g, v0, v5)
-    print "Shortest path found: " + format_list(path)
-
-    assert path == [v0, v2, v5]
-
-    # test where there isnt a shortest path
-
-    # raise invalid input exception if input is invalid
+    # There are two possible correct top sorts for this graph
+    assert topsorted == [v0, v1, v2] or topsorted == [v1, v0, v2]
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -92,7 +58,7 @@ def get_tests():
     # We will not be able to properly grade your coal tests if you do not follow
     # these instructions! You will lose points on your submission for failing
     # to follow these instructions.
-    return [example_test_1, simple_test, harder_test]
+    return [example_test_1, simple_test]
 
 # DO NOT EDIT BELOW THIS LINE ==================================================
 
