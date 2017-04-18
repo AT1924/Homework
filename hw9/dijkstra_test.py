@@ -47,8 +47,8 @@ def simple_test():
 
     # If necessary you can take a look at the graph
     # you created for testing and what was returned
-    g.popup()
-    ret.popup()
+   # g.popup()
+   # ret.popup()
 
 def get_tests():
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
