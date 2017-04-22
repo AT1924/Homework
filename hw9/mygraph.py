@@ -299,6 +299,7 @@ class MyGraph(object):
         
         Runs in O(|V|) (we need to create a new set of vertices; we don't)
         want the caller to be able to screw up the original set)."""
+
         return set(self.__vertices)
 
     def numVertices(self):
@@ -444,6 +445,7 @@ class MyGraph(object):
         tmp.write(graph)
         tmp.close()
         os.system("dot -Tpng ./.tmpgraph | display")
+
     
 if __name__ == "__main__":
     g = MyGraph()

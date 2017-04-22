@@ -29,7 +29,8 @@ def dijkstra(g, src):
 
     vertices = g.vertices()
     for vertex in vertices:
-        vertex.element = float('inf')
+        #vertex.element = float('inf')
+        vertex.element = float("inf")
         elements.insert(0, vertex.element)
         decorate[vertex] = None
 
@@ -48,6 +49,9 @@ def dijkstra(g, src):
     while len(pQueue):
         popped = pQueue.pop()
         vertex = popped.value()
+        print vertex.element()
+        print type(vertex)
+        g.removeVertex(vertex)
         decorate[vertex] = 1
         edges = g.incidentEdges(vertex)
         for edge in edges:
@@ -68,7 +72,7 @@ def dijkstra(g, src):
 
                 # set prev marker and replace in PQ
                 shortestPath.insert(0, vertex)
-                decorate[nextVertex] = vertex
+                #decorate[nextVertex] = vertex
 
     # return myGraph object of the shortestPath
     path = MyGraph()
