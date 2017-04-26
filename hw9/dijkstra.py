@@ -22,12 +22,41 @@ def dijkstra(g, src):
     if g is None or g.containsVertex(src) is False:
         raise InvalidInputException("g is none or g does not contain src")
 
+    #solution:
+    shortestPath = MyGraph()
+
+    #add all vertices from g into heap priority queue
+
+    #take source, get children, add children, repeat for each child
+    hQueue = HeapPriorityQueue()
+
+    vertex = src
+    hQueue.push(vertex, )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # loop thru all vertices and initialize distance decorations, infinity for all but src
     elements = []
     heapPos = {}
     decorate = {}
-    shortestPath = []
-
     vertices = g.vertices()
     for vertex in vertices:
         #vertex.element = float('inf')
@@ -42,6 +71,7 @@ def dijkstra(g, src):
     # initalize PQ and use vertex.elements as priorities
     pQueue = HeapPriorityQueue()
 
+    #TODO -- fix adding to HeapPriorityQueue
     for vertex in vertices:
         position = pQueue.push(vertex.element, vertex).pos()
         heapPos[vertex.element] = position
