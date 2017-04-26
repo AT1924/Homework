@@ -10,7 +10,7 @@ def apply_all(f_list, n):
     Exceptions: InvalidInputException if any of the inputs are None
     Example: function_apply([lambda x: x+1, lambda x: x+2, lambda x: x+3], 4) --> [5,6,7]
     """
-    return []
+    return map(lambda f: f(n), f_list)
 
 def compose(f_list, n):
     """compose: [function], number -> number
@@ -21,7 +21,11 @@ def compose(f_list, n):
     Exceptions: InvalidInputExceiption if any of the inputs are None
     Example: compose([lambda x: x+1, lambda x: x+2, lambda x: x+3], 4) --> 10
     """
-    return 0
+    def comp2(f1, f2):
+        return lambda x: f1(f2(x))
+    composed = reduce(comp2, f_list)
+    composed = reduce(lambda x, y: lambda z: x(y(z)), f_list)
+    return composed(n)
 
 def list_compose_steps(f_list, n):
     """list_compose_steps: [function], number -> [number]
